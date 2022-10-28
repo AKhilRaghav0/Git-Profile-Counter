@@ -14,19 +14,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
-    
+  
     - name: Initialization environment
-      run: |
-      sudo apt-get update
-      sudo apt-get install -y \
-      python python3
+      run: sudo apt-get update && sudo apt-get install -y python python3
     - name: Downloading source code
-      run: |
-      git clone https://github.com/AKhilRaghav0/Git-Profile-Counter
-      cd Git-Profile-Counter
-      rm username.txt
-      echo "${{ github.event.inputs.auth }}" >> username.txt
+      run: git clone https://github.com/AKhilRaghav0/Git-Profile-Counter && cd Git-Profile-Counter && rm username.txt && echo "${{ github.event.inputs.auth }}" >> username.txt
       
     - name: Excecution
-      run: |
-      python bot.py
+      run: python bot.py
