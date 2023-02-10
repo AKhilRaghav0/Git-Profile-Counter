@@ -1,24 +1,30 @@
-name: Counter Runner
+name: Python application
 
 on:
   workflow_dispatch:
-   inputs:
-     auth:
-        description: 'USERNAME'
-        required: true
-        default: 'Github_Username'
-jobs:
+  push:
+    branches:
+      - main
 
+jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
-  
-    - name: Initialization environment
-      run: sudo apt-get update && sudo apt-get install -y python python3
-    - name: Downloading source code
-      run: git clone https://github.com/AKhilRaghav0/Git-Profile-Counter && cd Git-Profile-Counter
-      
-    - name: Excecution
-      run: python bot.py
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+
+    - name: Run the tests
+      run: |
+        python bot.py
